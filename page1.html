@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  asda35165sd
+  <div id="csa_page">
+    <script defer>
+      var reactor = csa.at("reactor");
+      test_input.oninput = (e) => {
+        // console.log(test_input.value);
+        
+        reactor.set("test_input", test_input.value)
+      }
+    </script>
+    <input type="text" id="test_input">
+    <p>input value: <span csa-reactor-key="test_input"></span></p>
+  </div>
+</body>
+</html>

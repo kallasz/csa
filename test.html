@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <script type="module" src="./init.js"></script>
+
+  <script>
+    window.onload = async () => {
+      window.csa = new CSA();
+      csa.at("pageloader", new csa.PageLoader());
+      csa.at("reactor", new csa.Reactor());
+      var pageloader = csa.at("pageloader");
+      pageloader.connect(document.querySelector('#csa_page'), "#csa_page", "#csa_loading", () => { return document.querySelector('a') })
+      await pageloader.load('./page1.html');
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: black;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div id="csa_page"></div>
+  <div id="csa_loading" hidden>loading...</div>
+</body>
+</html>
