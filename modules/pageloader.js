@@ -10,7 +10,7 @@ export class CSA_PageLoader {
   #applyToAnchors = null;
   #resultHtmlQuerySelector = null;
   #loadingElement = null;
-  connect = (connectedElement, resultQuerySelector, loadingElement, applyToAnchors) => {
+  connect = ({ connectedElement, resultQuerySelector, loadingElement, applyToAnchors }) => {
     this.#connectedElement = connectedElement;
     this.#applyToAnchors = applyToAnchors;
     this.#resultHtmlQuerySelector = resultQuerySelector;

@@ -13,7 +13,12 @@
       csa.at("pageloader", new csa.PageLoader());
       csa.at("reactor", new csa.Reactor());
       var pageloader = csa.at("pageloader");
-      pageloader.connect(document.querySelector('#csa_page'), "#csa_page", "#csa_loading", () => { return document.querySelector('a') })
+      pageloader.connect({
+        connectedElement: document.querySelector('#csa_page'), 
+        resultQuerySelector: "#csa_page", 
+        loadingElement: "#csa_loading",
+        applyToAnchors: () => { return document.querySelector('a')}
+      });
       await pageloader.load('./page1.html');
     }
   </script>
