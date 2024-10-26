@@ -17,7 +17,7 @@
         connectedElement: document.querySelector('#csa_page'), 
         resultQuerySelector: "#csa_page", 
         loadingElement: "#csa_loading",
-        applyToAnchors: () => { return document.querySelector('a')}
+        applyToAnchors: () => { return document.querySelector('a') }
       });
       await pageloader.load('./page1.html');
     }
@@ -31,6 +31,8 @@
   </style>
 </head>
 <body>
+  <a href="page1.html">page1</a>
+  <a href="page2.html">page2</a>
   <div id="csa_page"></div>
   <div id="csa_loading" hidden>loading...</div>
 </body>

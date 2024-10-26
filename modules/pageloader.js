@@ -15,14 +15,15 @@ export class CSA_PageLoader {
     this.#applyToAnchors = applyToAnchors;
     this.#resultHtmlQuerySelector = resultQuerySelector;
     this.#loadingElement = loadingElement;
-
-    if (this.#applyToAnchors) {
-      const anchors = this.#connectedElement.querySelectorAll('a');
-      anchors.forEach(anchor => {
-        anchor.addEventListener('click', (e) => {
+    
+    if (this.#applyToAnchors) {      
+      const anchors = [...document.querySelectorAll('a')].filter(this.#applyToAnchors);
+      
+      anchors.forEach(async (anchor) => {
+        anchor.onclick = async (e) => {
           e.preventDefault();
-          this.load(anchor.href);
-        });
+          await this.load(anchor.href);
+        };
       });
     }
   }
@@ -44,7 +45,6 @@ export class CSA_PageLoader {
 
     const res = await fetch(url);
     const html = await res.text();
-
     
     const dp = new DOMParser()
     const parsed = dp.parseFromString(html, 'text/html').querySelector(this.#resultHtmlQuerySelector || this.#connectedElement);
@@ -54,16 +54,18 @@ export class CSA_PageLoader {
       // TODO: scr, trustedSources...
       const newScript = document.createElement('script');
       newScript.innerHTML = script.innerHTML;
-      document.body.appendChild(newScript);
+      this.#connectedElement.appendChild(newScript);
+      // script.remove()
     });
+    // scripts.forEach(script => script.remove());
     
     if (this.#applyToAnchors) {
-      const anchors = this.#connectedElement.querySelectorAll('a');
+      const anchors = [...document.querySelectorAll('a')].filter(this.#applyToAnchors);
       anchors.forEach(anchor => {
-        anchor.addEventListener('click', (e) => {
+        anchor.onclick = async (e) => {
           e.preventDefault();
-          this.load(anchor.href);
-        });
+          await this.load(anchor.href);
+        };
       });
     }
   }
